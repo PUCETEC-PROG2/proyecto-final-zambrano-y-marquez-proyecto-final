@@ -8,9 +8,7 @@
     </head>
     <body>
       <div class="container-fluid">
-          <div class="bg-primary text-white p-4 text-center w-100">
-              <img src="{%static "images/logo.png"%}" width="250px">
-          </div>
+        <img src="{%static "images/logo3.png"%}" width="100%" height='200px'>
           <nav class="navbar navbar-expand-lg navbar-light bg-primary mb-4">
             <div class="container-fluid">
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
@@ -18,18 +16,18 @@
               </button>
               <div class="collapse navbar-collapse" id="navbarText">
           
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="font-family: 'Trebuchet MS', sans-serif;">
                   {% if es_index %}
                     <li class="nav-item">
                       <a class="nav-link active text-white" aria-current="page" href="{% url "catalogo_videojuegos:index" %}"><i class="fa-solid fa-house-chimney"></i></a>
                     </li>
                     {% if user.is_authenticated %}
                     <li class="nav-item">
-                      <a class="nav-link text-warning" href={% url "logout" %}>Logout</a>
+                      <a class="nav-link" style="color:rgb(0, 0, 0);" href={% url "logout" %}>Logout</a>
                     </li>
                     {% else %}
                     <li class="nav-item">
-                      <a class="nav-link text-warning" href={% url "catalogo_videojuegos:login" %}>Login</a>
+                      <a class="nav-link" style="color:rgb(0, 0, 0);" href={% url "catalogo_videojuegos:login" %}>Login</a>
                     </li>
                     {% endif %}
                   {% else %}
@@ -50,11 +48,11 @@
                     </li>
                     {% if user.is_authenticated %}
                     <li class="nav-item">
-                      <a class="nav-link text-warning" href={% url "logout" %}>Logout</a>
+                      <a class="nav-link" style="color:rgb(0, 0, 0);" href={% url "logout" %}>Logout</a>
                     </li>
                     {% else %}
                     <li class="nav-item">
-                      <a class="nav-link text-warning" href={% url "catalogo_videojuegos:login" %}>Login</a>
+                      <a class="nav-link" style="color:rgb(0, 0, 0);" href={% url "catalogo_videojuegos:login" %}>Login</a>
                     </li>
                     {% endif %}
                   {% endif %}

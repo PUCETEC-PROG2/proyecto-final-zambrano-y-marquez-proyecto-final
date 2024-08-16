@@ -149,6 +149,17 @@ class InventarioForm(forms.ModelForm):
         self.fields['id_genero'].queryset = Catalogos.objects.filter(id_raiz=genero_id)
         self.fields['id_plataforma'].queryset = Catalogos.objects.filter(id_raiz=plataforma_id)
     
+    def clean(self):
+        cleaned_data = super().clean()
+        nombre = cleaned_data.get('nombre')
+        id_formato = cleaned_data.get('id_formato')
+        id_plataforma = cleaned_data.get('id_plataforma')
+        
+        if Inventario.objects.filter(nombre=nombre, id_formato=id_formato, id_plataforma=id_plataforma).exists():
+            self.add_error('nombre','Ya existe un producto con el mismo nombre, con el mismo formato y para la misma plataforma.')
+            
+        return cleaned_data
+    
     def clean_ano_lanzamiento(self):
         ano_lanzamiento = self.cleaned_data.get('ano_lanzamiento')
 
