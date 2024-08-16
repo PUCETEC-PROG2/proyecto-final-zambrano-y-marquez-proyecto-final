@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.template import loader
 from django.utils import timezone
+from django.contrib import messages
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.decorators import login_required
 import pytz
@@ -197,6 +198,14 @@ def ingresar_venta(request):
         productos_seleccionados = request.POST.getlist('productos[]')  # IDs de productos seleccionados
         cantidades = request.POST.getlist('cantidades[]')  # Cantidades correspondientes a los productos
 
+        # Verificar que las cantidades no excedan el stock
+        for idx, producto_id in enumerate(productos_seleccionados):
+            producto = Inventario.objects.get(id=producto_id)
+            cantidad = int(cantidades[idx])
+            if cantidad > producto.stock:
+                # Mostrar mensaje de error si la cantidad excede el stock
+                messages.error(request, f"La cantidad solicitada para el producto {producto.codigo_producto} excede el stock disponible.")
+                return redirect('catalogo_videojuegos:ingresar_venta')
 
         # Crear una nueva venta
         venta = Ventas.objects.create(
@@ -221,6 +230,17 @@ def ingresar_venta(request):
                 cantidad_producto=cantidad
             )
 
+            producto.stock -= cantidad
+            
+            if producto.stock > 0:
+                estado_disponible = Catalogos.objects.get(item_catalogo='DISPONIBLE')
+                producto.id_estado_producto = estado_disponible
+            else:
+                estado_no_disponible = Catalogos.objects.get(item_catalogo='NO DISPONIBLE')
+                producto.id_estado_producto = estado_no_disponible
+            
+            producto.save()
+            
         # Actualizar el total de la venta
         venta.total_venta = total_venta
         venta.save()
