@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %} Ingresar cliente{% endblock title %}
+{% block content %}
+
+<div class="container-md">
+    <h2 class="text-center mb-4">Ingresar o Actualizar Cliente</h2>
+    <div class="card p-4 shadow-sm mb-4">    
+        <form method="post">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label for="id_cedula">Cédula:</label>
+                {{ form.cedula }}
+                {% if form.cedula.errors %}
+                    <div class="alert alert-danger">
+                        {{ form.cedula.errors }}
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="id_apellidos_nombres">Apellidos y Nombres:</label>
+                {{ form.apellidos_nombres }}
+                {% if form.apellidos_nombres.errors %}
+                <div class="alert alert-danger">
+                    {{ form.apellidos_nombres.errors }}
+                </div>
+            {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="id_correo">Correo:</label>
+                {{ form.correo }}
+                {% if form.correo.errors %}
+                <div class="alert alert-danger">
+                    {{ form.correo.errors }}
+                </div>
+            {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="id_direccion">Dirección:</label>
+                {{ form.direccion }}
+                {% if form.direccion.errors %}
+                <div class="alert alert-danger">
+                    {{ form.direccion.errors }}
+                </div>
+            {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="id_telefono">Teléfono:</label>
+                {{ form.telefono }}
+                {% if form.telefono.errors %}
+                <div class="alert alert-danger">
+                    {{ form.telefono.errors }}
+                </div>
+            {% endif %}
+            </div>
+
+            <button type="submit" class="btn btn-primary">Guardar</button>
+        </form>
+    </div>
+</div>
+
+{% endblock content %}

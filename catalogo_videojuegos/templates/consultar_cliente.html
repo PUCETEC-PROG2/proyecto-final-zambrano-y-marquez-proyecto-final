@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}Consultar Cliente{% endblock title %}
+
+{% block content %}
+<div class="container-md">
+    <h2 class="text-center mb-4">Consultar Cliente</h2>
+    <div class="card p-4 shadow-sm">
+        <div class="card-body">
+            <form method="GET" action="{% url 'catalogo_videojuegos:consultar_cliente' %}">
+                <div class="mb-3">
+                    <label for="cedula" class="form-label">Número de Cédula:</label>
+                    <input type="text" class="form-control" id="cedula" name="cedula" placeholder="Ingrese el número de cédula" value="{{ request.GET.cedula }}" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Buscar</button>
+            </form>
+
+            {% if cliente %}
+                <div class="mt-4">
+                    <div class="card">
+                        <div class="card-header">
+                            Información del Cliente
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <th>ID</th>
+                                        <td>{{ cliente.id }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Cédula</th>
+                                        <td>{{ cliente.cedula }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Apellidos y Nombres</th>
+                                        <td>{{ cliente.apellidos_nombres }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Correo</th>
+                                        <td>{{ cliente.correo }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Teléfono</th>
+                                        <td>{{ cliente.telefono }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Provincia</th>
+                                        <td>{{ cliente.provincia }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Dirección</th>
+                                        <td>{{ cliente.direccion }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            {%elif query %}
+                <p class="text-danger mt-3">No se encontró un cliente con la cédula proporcionada.</p>
+            {% endif %}
+        </div>
+    </div>
+    <p></p>
+</div>
+{% endblock content %}

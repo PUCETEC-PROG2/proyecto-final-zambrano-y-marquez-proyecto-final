@@ -1,11 +1,62 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio</title>
-</head>
-<body>
-    <p>hola!</p>
-</body>
-</html>
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Inicio{% endblock title %}
+
+{% block content %}
+      <div class="container-fluid">
+          <div class="container mt-5">
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <a href="{% url 'catalogo_videojuegos:clientes' %}" class="text-decoration-none">
+                        <div class="card text-center" style="height: 400px;">
+                            <img src="{% static 'images/clientes.webp' %}" class="card-img-top" style="height: 300px;" alt="Clientes">
+                            <div class="card-body">
+                                <h5 class="card-title">Clientes</h5>
+                                <p class="card-text">Gestiona la información de los clientes registrados.</p>
+                                <span class="stretched-link"></span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <a href="{% url 'catalogo_videojuegos:inventario' %}" class="text-decoration-none">
+                        <div class="card text-center" style="height: 400px;">
+                            <img src="{% static 'images/inventario.jpg' %}" class="card-img-top" style="height: 300px;" alt="Inventario">
+                            <div class="card-body">
+                                <h5 class="card-title">Inventario</h5>
+                                <p class="card-text">Administra los productos disponibles en el inventario.</p>
+                                <span class="stretched-link"></span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <a href="{% url 'catalogo_videojuegos:ventas' %}" class="text-decoration-none">
+                        <div class="card text-center" style="height: 400px;">
+                            <img src="{% static 'images/ventas.jpg' %}" class="card-img-top" style="height: 300px;" alt="Ventas">
+                            <div class="card-body">
+                                <h5 class="card-title">Ventas</h5>
+                                <p class="card-text">Consulta y gestiona las ventas realizadas.</p>
+                                <span class="stretched-link"></span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <a href="{% url 'catalogo_videojuegos:catalogos' %}" class="text-decoration-none">
+                        <div class="card text-center" style="height: 400px;">
+                            <img src="{% static 'images/catalogos.jpg' %}" class="card-img-top" style="height: 300px;" alt="Catálogos">
+                            <div class="card-body">
+                                <h5 class="card-title">Catálogos</h5>
+                                <p class="card-text">Explora y administra los catálogos de productos.</p>
+                                <span class="stretched-link"></span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+      </div>
+{% endblock content %}

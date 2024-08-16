@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+
+{% block title %}Ingresar Venta{% endblock title %}
+
+{% block content %}
+<div class="container-md">
+    <h2 class="mb-3 text-center">Ingresar Venta</h2>
+    <div class="card p-4 shadow-sm mb-3 pb-0">
+        <div class="card-body mb-0">
+            <form method="POST" id="venta-form">
+                {% csrf_token %}
+                
+                <div class="mb-3">
+                    <label for="cliente" class="form-label">Cliente</label>
+                    <select name="cliente" id="cliente" class="form-control" required>
+                        <option value="" disabled selected>Seleccione un cliente</option>
+                        {% for cliente in clientes %}
+                            <option value="{{ cliente.id }}">{{ cliente.apellidos_nombres }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="fecha" class="form-label">Fecha y Hora</label>
+                    <input type="datetime-local" name="fecha" id="fecha" class="form-control" value="{{ fecha_hoy }}" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="forma_pago" class="form-label">Forma de Pago</label>
+                    <select name="forma_pago" id="forma_pago" class="form-control" required>
+                        <option value="" disabled selected>Seleccione una forma de pago</option>
+                        {% for forma in formas_pago %}
+                            <option value="{{ forma.id }}">{{ forma.item_catalogo }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <h5 class="mt-4 mb-3"><strong>Productos Disponibles</strong></h5>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr class="text-center">
+                            <th style="width: 10%;">Código</th>
+                            <th style="width: 20%;">Producto</th>
+                            <th style="width: 20%;">Formato</th>
+                            <th style="width: 20%;">Plataforma</th>
+                            <th style="width: 10%;">Precio Unitario</th>
+                            <th style="width: 10%;">Cantidad</th>
+                            <th style="width: 10%;">Selección</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for producto in productos %}
+                        <tr>
+                            <td>{{ producto.codigo_producto }}</td>
+                            <td>{{ producto.nombre }}</td>
+                            <td>{{ producto.id_formato }}</td>
+                            <td>{{ producto.id_plataforma }}</td>
+                            <td>${{ producto.precio_unitario }}</td>
+                            <td class="text-center">
+                                <input type="number" name="cantidades[]" value="1" min="1" class="form-control w-100">
+                            </td>
+                            <td class="text-center">
+                                <input type="checkbox" name="productos[]" value="{{ producto.id }}" class="form-check-input">
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+    
+                <h5 class="text-right">Total Venta: $<span id="total-venta">0.00</span></h5>
+
+                <button type="submit" class="btn btn-primary mt-3 mb-0">Guardar</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('venta-form');
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        const totalVentaSpan = document.getElementById('total-venta');
+
+        function updateTotal() {
+            let total = 0;
+            checkboxes.forEach((checkbox, index) => {
+                const row = checkbox.closest('tr');
+                const cantidadInput = row.querySelector('input[type="number"]');
+                const precio = parseFloat(row.cells[4].innerText.replace('$', ''));
+                
+                if (checkbox.checked) {
+                    cantidadInput.disabled = false;
+                    total += precio * parseInt(cantidadInput.value);
+                } else {
+                    cantidadInput.disabled = true;
+                    cantidadInput.value = 1;  // Resetea cantidad a 1 si deseleccionado
+                }
+            });
+            totalVentaSpan.innerText = total.toFixed(2);
+        }
+
+        function validateForm(event) {
+            let atLeastOneChecked = false;
+            checkboxes.forEach((checkbox) => {
+                if (checkbox.checked) {
+                    atLeastOneChecked = true;
+                }
+            });
+
+            if (!atLeastOneChecked) {
+                event.preventDefault();  // Evita el envío del formulario
+                alert('Debe seleccionar al menos un producto para guardar la venta.');
+            }
+        }
+
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', updateTotal);
+        });
+
+        document.querySelectorAll('input[type="number"]').forEach(input => {
+            input.addEventListener('input', updateTotal);
+        });
+
+        form.addEventListener('submit', validateForm);
+
+        updateTotal();  // Actualiza el total al cargar la página
+    });
+</script>
+
+{% endblock content %}

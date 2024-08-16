@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %}Consultar Venta{% endblock title %}
+
+{% block content %}
+
+<div class="container-md">
+    <h2 class="text-center mb-4">Consultar Venta</h2>
+    <div class="card p-4 shadow-sm">
+        <div class="card-body">
+
+            <form method="GET" action="{% url 'catalogo_videojuegos:consultar_venta' %}">
+                <div class="mb-3">
+                    <label for="cedula" class="form-label">Cédula del cliente:</label>
+                    <input type="text" class="form-control" id="cedula" name="cedula" placeholder="Ingrese la cédula del cliente" 
+                    {% if query %} value="{{query}}" {%endif%} required>
+                </div>
+                <button type="submit" class="btn btn-primary">Buscar</button>
+            </form>
+
+            {% if ventas %}
+            <div class="mt-4">
+                <h4>Ventas encontradas:</h4>
+                {% for venta in ventas %}
+                <div class="card mb-3">
+                    <div class="card-header">
+                        Venta ID: {{ venta.id }}
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Fecha y Hora:</strong> {{ venta.fecha|date:"d/m/Y - h:i A" }}</p>
+                        <p><strong>Forma de Pago:</strong> {{ venta.id_forma_pago }}</p>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Código</th>
+                                    <th>Nombre del Producto</th>
+                                    <th>Formato</th>
+                                    <th>Plataforma</th>
+                                    <th>Cantidad</th>
+                                    <th>Precio Unitario</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for detalle in venta.detalle_ventas_set.all %}
+                                <tr>
+                                    <td>{{ detalle.id_producto.codigo_producto }}</td>
+                                    <td>{{ detalle.id_producto.nombre }}</td>
+                                    <td>{{ detalle.id_producto.id_formato }}</td>
+                                    <td>{{ detalle.id_producto.id_plataforma }}</td>
+                                    <td>{{ detalle.cantidad_producto }}</td>
+                                    <td>${{ detalle.id_producto.precio_unitario }}</td>
+                                </tr>
+                                {% endfor %}
+                                <tr>
+                                    <th colspan="5" class="text-right">Total Venta:</th>
+                                    <th>${{ venta.total_venta }}</th>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% elif query %}
+            <p class="text-danger mt-3">No se encontraron ventas para el cliente con la cédula proporcionada.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

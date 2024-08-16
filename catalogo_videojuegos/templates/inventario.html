@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Lista de Productos{% endblock title %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <h2 class="mb-3 text-center">Lista de Productos</h2>
+    <a href="{% url 'catalogo_videojuegos:ingresar_inventario' %}" class="btn btn-primary mb-4">Añadir nuevo</a>
+    <a href="{% url 'catalogo_videojuegos:consultar_inventario' %}" class="btn btn-primary mb-4">Consultar</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Codigo Producto</th>
+                <th>Nombre</th>
+                <th>Formato</th>
+                <th>G&eacute;nero</th>
+                <th>Plataforma</th>
+                <th>Año de lanzamiento</th>
+                <th>Precio</th>
+                <th>Stock</th>
+                <th>Estado Producto</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for producto in inventario %}
+            <tr>
+                <td>{{ producto.id }}</td>
+                <td>{{ producto.codigo_producto}}</td>
+                <td>{{ producto.nombre }}</td>
+                <td>{{ producto.id_formato }}</td>
+                <td>{{ producto.id_genero }}</td>
+                <td>{{ producto.id_plataforma }}</td>
+                <td>{{ producto.ano_lanzamiento }}</td>
+                <td>{{ producto.precio_unitario }}</td>
+                <td>{{ producto.stock}}</td>
+                <td>{{ producto.id_estado_producto}}</td>
+                <td><a href = "actualizar/{{producto.codigo_producto}}" class="btn btn-primary">
+					<i class="fa-solid fa-pencil"></i></a>
+                    <a href = "eliminar/{{producto.codigo_producto}}" class="btn btn-danger" 
+                    {% if user.is_authenticated %}
+                    onclick="return confirm('¿Estás seguro de que deseas eliminar este producto?');"
+                    {% endif %}>
+                        <i class="fa-solid fa-trash"></i></a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock content %}

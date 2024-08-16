@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block title %}Consultar Inventario{% endblock title %}
+
+{% block content %}
+<div class="container-md">
+    <h2 class="text-center mb-4">Consultar Inventario</h2>
+    <div class="card p-4 shadow-sm">
+        <div class="card-body">
+
+            <form method="GET" action="{% url 'catalogo_videojuegos:consultar_inventario' %}">
+                <div class="mb-3">
+                    <label for="codigo_producto" class="form-label">Código de producto:</label>
+                    <input type="text" class="form-control" id="codigo_producto" name="codigo_producto" placeholder="Ingrese el código del producto" value="{{ request.GET.codigo_producto }}" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Buscar</button>
+            </form>
+            
+            {% if producto %}
+                <div class="mt-4">
+                    <div class="card">
+                        <div class="card-header">
+                            Información del Producto
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <th>ID</th>
+                                        <td>{{ producto.id }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Código de producto</th>
+                                        <td>{{ producto.codigo_producto }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Nombre</th>
+                                        <td>{{ producto.nombre }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Formato</th>
+                                        <td>{{ producto.id_formato }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Género</th>
+                                        <td>{{ producto.id_genero }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Plataforma</th>
+                                        <td>{{ producto.id_plataforma }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Año de Lanzamiento</th>
+                                        <td>{{ producto.ano_lanzamiento }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Precio</th>
+                                        <td>{{ producto.precio_unitario }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Stock</th>
+                                        <td>{{ producto.stock }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Estado de Producto</th>
+                                        <td>{{ producto.id_estado_producto }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            {% elif query %}
+                <p class="text-danger mt-3">No se encontró un videojuego con el código proporcionado.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock content %}

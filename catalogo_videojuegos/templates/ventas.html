@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Ventas{% endblock title %}
+
+{% block content %}
+
+<div class="container-md">
+    <h2 class="mb-3 text-center">Lista de Ventas</h2>
+    <a href="{% url 'catalogo_videojuegos:ingresar_venta' %}" class="btn btn-primary mb-4">Añadir nuevo</a>
+    <a href="{% url 'catalogo_videojuegos:consultar_venta' %}" class="btn btn-primary mb-4">Consultar</a>
+    <table class="table table-striped">
+        <thead>
+            <tr class='text-center'>
+                <th>ID</th>
+                <th>C&eacute;dula cliente</th>
+                <th>Fecha y Hora</th>
+                <th>Total Venta</th>
+                <th>Forma de Pago</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for venta in ventas %}
+            <tr class='text-center'>
+                <td>{{ venta.id }}</td>
+                <td>{{ venta.id_cliente.cedula }}</td>
+                <td>{{ venta.fecha|date:"d/m/Y - h:i A" }}</td>
+                <td>{{ venta.total_venta }}</td>
+                <td>{{ venta.id_forma_pago}}</td>
+                <td>
+                    <a href="detalles/{{venta.id}}" class="btn btn-primary"><i class="fa-solid fa-eye"></i></a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock content %}

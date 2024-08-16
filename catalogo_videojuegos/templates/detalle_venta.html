@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Detalles de Venta{% endblock title %}
+
+{% block content %}
+<div class="container-md">
+    <h2 class="mb-3 text-center">Detalles de Venta</h2>
+    <div class="card px-4 pt-4 pb-1 shadow-sm mb-4">
+        <div class="card-body">
+            <p><strong>ID de la venta:</strong> {{ venta.id }}</p>
+            <p><strong>Cédula Cliente:</strong> {{ venta.id_cliente.cedula }}</p>
+            <p><strong>Fecha y hora:</strong> {{ venta.fecha|date:"d/m/Y - h:i A" }}</p>
+            <p><strong>Forma de Pago:</strong> {{ venta.id_forma_pago }}</p>
+
+            <p class="mt-4"><strong>Productos Comprados:</strong></p>
+            <table class="table table-bordered mt-3 mb-5">
+                <thead>
+                    <tr>
+                        <th>Código del Producto</th>
+                        <th>Nombre del Producto</th>
+                        <th>Formato</th>
+                        <th>Plataforma</th>
+                        <th>Cantidad</th>
+                        <th>Precio Unitario</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for detalle in detalles %}
+                    <tr>
+                        <td>{{ detalle.id_producto.codigo_producto }}</td>
+                        <td>{{ detalle.id_producto.nombre }}</td>
+                        <td>{{ detalle.id_producto.id_formato }}</td>
+                        <td>{{ detalle.id_producto.id_plataforma }}</td>
+                        <td>{{ detalle.cantidad_producto }}</td>
+                        <td>{{ detalle.id_producto.precio_unitario }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <h5 class='text-right'><strong>Total Venta:</strong> {{ venta.total_venta }}</h5>
+        </div>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Lista de Catálogos{% endblock title %}
+
+{% block content %}
+
+<div class="container-md">
+    <h2 class="mb-3 text-center">Lista de Catálogos</h2>
+    <a href="{% url 'catalogo_videojuegos:ingresar_catalogo' %}" class="btn btn-primary mb-4">Añadir nuevo</a>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Catálogo</th>
+                <th>Item Catálogo</th>
+                <th>ID Raíz</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for catalogo in catalogos %}
+            <tr>
+                <td>{{ catalogo.id }}</td>
+                <td>{{ catalogo.catalogo|default:"" }}</td>
+                <td>{{ catalogo.item_catalogo|default:"" }}</td>
+                <td>{{ catalogo.id_raiz|default:"" }}</td>
+                <td><a href="actualizar/{{ catalogo.id }}" class="btn btn-primary">
+                    <i class="fa-solid fa-pencil"></i>
+                    </a>
+                    <a href="eliminar/{{ catalogo.id }}" class="btn btn-danger"
+                    {% if user.is_authenticated %}
+                    onclick="return confirm('¿Estás seguro de que deseas eliminar este catálogo?');"
+                    {% endif %}>                    
+                    <i class="fa-solid fa-trash"></i></a> </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock content %}

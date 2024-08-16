@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Actualizar Catálogo{% endblock title %}
+
+{% block content %}
+<div class="container">
+    <h2 class="text-center mb-4">Actualizar Catálogo</h2>
+    <div class="card p-4 shadow-sm">
+        <div class="card-body">
+            <form method="POST">
+                {% csrf_token %}
+                
+                {% if catalogo_padre %}
+
+                <div class="mb-3">
+                    <p>Catálogo Padre</p>
+                    <ul class="list-group mb-3">
+                        <li class='list-group-item p-2 bg-light' readonly>{{ catalogo_padre.catalogo }}</li>
+                    </ul>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="id_item_catalogo" class="form-label">Item Catálogo</label>
+                    <input type="text" name="item_catalogo" id="id_item_catalogo" class="form-control" 
+                    value="{{ form.item_catalogo.value }}">
+                </div>
+
+                {{ form.id_raiz }}
+                
+                {% else %}
+
+                <div class="mb-3">
+                    <label for="id_catalogo" class="form-label">Catálogo</label>
+                    <input type="text" name="catalogo" id="id_catalogo" class="form-control" 
+                    value="{{ form.catalogo.value }}">
+                </div>
+
+                {% endif %}
+                
+                <button type="submit" class="btn btn-primary mt-3">Guardar</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}

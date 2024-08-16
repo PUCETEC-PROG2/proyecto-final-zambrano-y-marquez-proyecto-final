@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block title %}Agregar/Actualizar Inventario{% endblock title %}
+
+{% block content %}
+<div class="container">
+    <h2 class="text-center mb-4">Agregar/Actualizar Inventario</h2>
+    <div class="card p-4 shadow-sm">
+        <div class="card-body">
+            <form method="POST">
+                {% csrf_token %}
+
+                <div class="mb-3">
+                    <label for="id_nombre" class="form-label">Nombre del Producto</label>
+                    {{ form.nombre }}
+                    {% if form.nombre.errors %}
+                        <div class="alert alert-danger">
+                            {{ form.nombre.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+                
+                <div class="mb-3">
+                    <label for="id_formato" class="form-label">Formato</label>
+                    {{ form.id_formato }}
+                </div>
+                
+                <div class="mb-3">
+                    <label for="id_genero" class="form-label">Género</label>
+                    {{ form.id_genero }}
+                </div>
+                
+                <div class="mb-3">
+                    <label for="id_plataforma" class="form-label">Plataforma</label>
+                    {{ form.id_plataforma }}
+                </div>
+                
+                <div class="mb-3">
+                    <label for="id_ano_lanzamiento" class="form-label">Año de Lanzamiento</label>
+                    {{ form.ano_lanzamiento }}
+                    {% if form.ano_lanzamiento.errors %}
+                        <div class="alert alert-danger">
+                            {{ form.ano_lanzamiento.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+                
+                <div class="mb-3">
+                    <label for="id_precio_unitario" class="form-label">Precio Unitario</label>
+                    {{ form.precio_unitario }}
+                    {% if form.precio_unitario.errors %}
+                        <div class="alert alert-danger">
+                            {{ form.precio_unitario.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+                
+                <div class="mb-3">
+                    <label for="id_stock" class="form-label">Stock</label>
+                    {{ form.stock }}
+                    {% if form.stock.errors %}
+                        <div class="alert alert-danger">
+                            {{ form.stock.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+                
+                <button type="submit" class="btn btn-primary mt-3">Guardar</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}

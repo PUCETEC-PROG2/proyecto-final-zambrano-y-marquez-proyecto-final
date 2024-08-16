@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block title %}Agregar Catálogo{% endblock title %}
+
+{% block content %}
+<div class="container">
+    <h2 class="mb-3 text-center">Agregar Catálogo o Item</h2>
+    <form method="POST">
+        {% csrf_token %}
+
+        <div class="mb-3">
+            <label for="opcion" class="form-label">¿Qué desea ingresar?</label>
+            <select id="opcion" class="form-control" onchange="toggleFields()">
+                <option value="">Seleccione una opción</option>
+                <option value="catalogo">Nuevo Catálogo</option>
+                <option value="item">Item de Catálogo Existente</option>
+            </select>
+        </div>
+
+        <div id="catalogo-field" class="mb-3" style="display:none;">
+            <label for="id_catalogo" class="form-label">Nombre del Catálogo</label>
+            <input type="text" name="catalogo" id="id_catalogo" class="form-control">
+        </div>
+
+        <div id="item-field" class="mb-3" style="display:none;">
+            <label for="id_raiz" class="form-label">Seleccione Catálogo</label>
+            <select name="id_raiz" id="id_raiz" class="form-control">
+                <option value="">Seleccione un catálogo</option>
+                {% for cat in catalogos %}
+                    <option value="{{ cat.id }}">{{ cat.catalogo }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div id="item-catalogo-field" class="mb-3" style="display:none;">
+            <label for="id_item_catalogo" class="form-label">Nombre del Item</label>
+            <input type="text" name="item_catalogo" id="id_item_catalogo" class="form-control">
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-3">Guardar</button>
+    </form>
+</div>
+
+<script>
+    function toggleFields() {
+        var opcion = document.getElementById('opcion').value;
+        var catalogoField = document.getElementById('catalogo-field');
+        var itemField = document.getElementById('item-field');
+        var itemCatalogoField = document.getElementById('item-catalogo-field');
+
+        if (opcion === 'catalogo') {
+            catalogoField.style.display = 'block';
+            itemField.style.display = 'none';
+            itemCatalogoField.style.display = 'none';
+        } else if (opcion === 'item') {
+            catalogoField.style.display = 'none';
+            itemField.style.display = 'block';
+            itemCatalogoField.style.display = 'block';
+        } else {
+            catalogoField.style.display = 'none';
+            itemField.style.display = 'none';
+            itemCatalogoField.style.display = 'none';
+        }
+    }
+</script>
+{% endblock content %}
