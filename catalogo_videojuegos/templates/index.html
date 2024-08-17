@@ -4,46 +4,37 @@
 
 {% block content %}
 <style>
-  /* Estilo personalizado para las tarjetas */
+  /* Estilo para las tarjetas con imágenes de fondo y efecto hover */
   .card-container {
-    width: 300px;
-    height: 300px;
     position: relative;
+    overflow: hidden;
     border-radius: 10px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-    overflow: hidden;
-    margin-bottom: 20px;
   }
 
-  .card {
+  .card-container .card-img-top {
     width: 100%;
-    height: 100%;
-    border-radius: inherit;
-    position: relative;
+    height: 300px;
+    object-fit: cover;
   }
 
-  .card .front-content {
+  .card-container .card-body {
+    position: absolute;
+    bottom: 0;
+    left: 0;
     width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
-    background-color: #ffffff; /* Default background color */
-  }
-
-  .card .front-content p {
-    font-size: 32px;
-    font-weight: 700;
-    opacity: 1;
-    background: linear-gradient(-45deg, #3af829 0%, #0f93ff 100%);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.8); /* Fondo blanco con opacidad */
+    color: #333; /* Color de texto */
+    text-align: center;
     transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
   }
 
-  .card .content {
+  .card-container:hover .card-body {
+    transform: translateY(0);
+  }
+
+  .card-container .card-body-hidden {
     position: absolute;
     top: 0;
     left: 0;
@@ -54,44 +45,17 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    gap: 10px;
-    background: linear-gradient(-45deg, #29f833 0%, #0f9fff 100%);
-    color: #e8e8e8;
+    background: rgba(255, 255, 255, 0.8); /* Fondo blanco con opacidad */
+    color: #333; /* Color de texto */
     padding: 20px;
     line-height: 1.5;
     border-radius: 5px;
-    pointer-events: none;
-    transform: translateY(-96%);
+    transform: translateY(-100%);
     transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
   }
 
-  .card .content .heading {
-    font-size: 32px;
-    font-weight: 700;
-  }
-
-  .card:hover .content {
+  .card-container:hover .card-body-hidden {
     transform: translateY(0);
-  }
-
-  .card:hover .front-content {
-    transform: translateY(30%);
-  }
-
-  .card:hover .front-content p {
-    opacity: 0;
-  }
-
-  /* Ajuste de margen para alinear tarjetas */
-  .row {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center; /* Centra las tarjetas horizontalmente */
-  }
-
-  .col-md-4, .col-md-6 {
-    display: flex;
-    justify-content: center; /* Centra las tarjetas dentro de cada columna */
   }
 </style>
 
@@ -101,14 +65,14 @@
       <div class="col-md-6 mb-4">
         <a href="{% url 'catalogo_videojuegos:clientes' %}" class="text-decoration-none">
           <div class="card-container">
-            <div class="card">
-              <div class="front-content">
-                <p>Clientes</p>
-              </div>
-              <div class="content">
-                <p class="heading">Clientes</p>
-                <p>Gestiona la información de los clientes registrados.</p>
-              </div>
+            <img src="{% static 'images/clientes.webp' %}" class="card-img-top" alt="Clientes">
+            <div class="card-body-hidden">
+              <h5 class="card-title"></h5>
+              <p class="card-text"></p>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Clientes</h5>
+              <p class="card-text">Gestiona la información de los clientes registrados.</p>
             </div>
           </div>
         </a>
@@ -116,14 +80,14 @@
       <div class="col-md-6 mb-4">
         <a href="{% url 'catalogo_videojuegos:inventario' %}" class="text-decoration-none">
           <div class="card-container">
-            <div class="card">
-              <div class="front-content">
-                <p>Inventario</p>
-              </div>
-              <div class="content">
-                <p class="heading">Inventario</p>
-                <p>Administra los productos disponibles en el inventario.</p>
-              </div>
+            <img src="{% static 'images/inventario.jpg' %}" class="card-img-top" alt="Inventario">
+            <div class="card-body-hidden">
+              <h5 class="card-title"></h5>
+              <p class="card-text"></p>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Inventario</h5>
+              <p class="card-text">Administra los productos disponibles en el inventario.</p>
             </div>
           </div>
         </a>
@@ -133,14 +97,14 @@
       <div class="col-md-4 mb-4">
         <a href="{% url 'catalogo_videojuegos:ventas' %}" class="text-decoration-none">
           <div class="card-container">
-            <div class="card">
-              <div class="front-content">
-                <p>Ventas</p>
-              </div>
-              <div class="content">
-                <p class="heading">Ventas</p>
-                <p>Consulta y gestiona las ventas realizadas.</p>
-              </div>
+            <img src="{% static 'images/ventas.jpg' %}" class="card-img-top" alt="Ventas">
+            <div class="card-body-hidden">
+              <h5 class="card-title"></h5>
+              <p class="card-text"></p>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Ventas</h5>
+              <p class="card-text">Consulta y gestiona las ventas realizadas.</p>
             </div>
           </div>
         </a>
@@ -148,14 +112,14 @@
       <div class="col-md-4 mb-4">
         <a href="{% url 'catalogo_videojuegos:categorias' %}" class="text-decoration-none">
           <div class="card-container">
-            <div class="card">
-              <div class="front-content">
-                <p>Categorías</p>
-              </div>
-              <div class="content">
-                <p class="heading">Categorías</p>
-                <p>Accede a las categorías de productos.</p>
-              </div>
+            <img src="{% static 'images/categorias.webp' %}" class="card-img-top" alt="Categorías">
+            <div class="card-body-hidden">
+              <h5 class="card-title"></h5>
+              <p class="card-text"></p>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Categorías</h5>
+              <p class="card-text">Accede a las categorías de productos.</p>
             </div>
           </div>
         </a>
@@ -163,14 +127,14 @@
       <div class="col-md-4 mb-4">
         <a href="{% url 'catalogo_videojuegos:catalogos' %}" class="text-decoration-none">
           <div class="card-container">
-            <div class="card">
-              <div class="front-content">
-                <p>Catálogos</p>
-              </div>
-              <div class="content">
-                <p class="heading">Catálogos</p>
-                <p>Explora y administra los catálogos.</p>
-              </div>
+            <img src="{% static 'images/catalogos.jpg' %}" class="card-img-top" alt="Catálogos">
+            <div class="card-body-hidden">
+              <h5 class="card-title"></h5>
+              <p class="card-text"></p>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Catálogos</h5>
+              <p class="card-text">Explora y administra los catálogos.</p>
             </div>
           </div>
         </a>
