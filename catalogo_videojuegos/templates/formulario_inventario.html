@@ -11,7 +11,7 @@
 
                 <div class="mb-3">
                     <label for="id_nombre" class="form-label">Nombre del Producto</label>
-                    {{ form.nombre }}
+                    <input type="text" name="nombre" id="id_nombre" class="form-control text-uppercase">
                     {% if form.nombre.errors %}
                         <div class="alert alert-danger">
                             {{ form.nombre.errors }}
@@ -22,6 +22,11 @@
                 <div class="mb-3">
                     <label for="id_formato" class="form-label">Formato</label>
                     {{ form.id_formato }}
+                    {% if form.id_formato.errors %}
+                        <div class="alert alert-danger">
+                            {{ form.id_formato.errors }}
+                        </div>
+                    {% endif %}
                 </div>
                 
                 <div class="mb-3">
@@ -32,6 +37,11 @@
                 <div class="mb-3">
                     <label for="id_plataforma" class="form-label">Plataforma</label>
                     {{ form.id_plataforma }}
+                    {% if form.id_plataforma.errors %}
+                        <div class="alert alert-danger">
+                            {{ form.id_plataforma.errors }}
+                        </div>
+                    {% endif %}
                 </div>
                 
                 <div class="mb-3">

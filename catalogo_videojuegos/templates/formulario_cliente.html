@@ -21,7 +21,7 @@
 
             <div class="form-group">
                 <label for="id_apellidos_nombres">Apellidos y Nombres:</label>
-                {{ form.apellidos_nombres }}
+                <input type="text" name="apellidos_nombres" id="id_apellidos_nombres" class="form-control text-uppercase">
                 {% if form.apellidos_nombres.errors %}
                 <div class="alert alert-danger">
                     {{ form.apellidos_nombres.errors }}
@@ -31,7 +31,7 @@
 
             <div class="form-group">
                 <label for="id_correo">Correo:</label>
-                {{ form.correo }}
+                <input type="email" name="correo" id="id_correo" class="form-control text-uppercase">
                 {% if form.correo.errors %}
                 <div class="alert alert-danger">
                     {{ form.correo.errors }}
@@ -41,7 +41,7 @@
 
             <div class="form-group">
                 <label for="id_direccion">Dirección:</label>
-                {{ form.direccion }}
+                <input type="text" name="direccion" id="id_direccion" class="form-control text-uppercase">
                 {% if form.direccion.errors %}
                 <div class="alert alert-danger">
                     {{ form.direccion.errors }}

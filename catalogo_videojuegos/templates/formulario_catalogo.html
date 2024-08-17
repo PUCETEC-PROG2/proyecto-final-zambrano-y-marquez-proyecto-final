@@ -8,6 +8,16 @@
         {% csrf_token %}
 
         <div class="mb-3">
+            {% if form.catalogo.errors %}
+            <div class="alert alert-danger">
+                {{ form.catalogo.errors }}
+            </div>
+            {% endif %}
+            {% if form.item_catalogo.errors %}
+            <div class="alert alert-danger">
+                {{ form.item_catalogo.errors }}
+            </div>
+            {% endif %}
             <label for="opcion" class="form-label">¿Qué desea ingresar?</label>
             <select id="opcion" class="form-control" onchange="toggleFields()">
                 <option value="">Seleccione una opción</option>
@@ -18,7 +28,7 @@
 
         <div id="catalogo-field" class="mb-3" style="display:none;">
             <label for="id_catalogo" class="form-label">Nombre del Catálogo</label>
-            <input type="text" name="catalogo" id="id_catalogo" class="form-control">
+            <input type="text" name="catalogo" id="id_catalogo" class="form-control text-uppercase">
         </div>
 
         <div id="item-field" class="mb-3" style="display:none;">
@@ -33,7 +43,12 @@
 
         <div id="item-catalogo-field" class="mb-3" style="display:none;">
             <label for="id_item_catalogo" class="form-label">Nombre del Item</label>
-            <input type="text" name="item_catalogo" id="id_item_catalogo" class="form-control">
+            <input type="text" name="item_catalogo" id="id_item_catalogo" class="form-control text-uppercase">
+            {% if form.item_catalogo.errors %}
+                <div class="alert alert-danger">
+                    {{ form.item_catalogo.errors }}
+                </div>
+            {% endif %}
         </div>
 
         <button type="submit" class="btn btn-primary mt-3">Guardar</button>

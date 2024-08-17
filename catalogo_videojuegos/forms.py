@@ -106,6 +106,9 @@ class CatalogoForm(forms.ModelForm):
             cleaned_data['catalogo'] = catalogo.upper()
         if item_catalogo:
             cleaned_data['item_catalogo'] = item_catalogo.upper()
+            
+        if Catalogos.objects.filter(catalogo=catalogo, item_catalogo=item_catalogo).exists():
+            self.add_error('item_catalogo','Ya existe un catálogo con el mismo nombre.')
 
         return cleaned_data
     
@@ -157,6 +160,8 @@ class InventarioForm(forms.ModelForm):
         
         if Inventario.objects.filter(nombre=nombre, id_formato=id_formato, id_plataforma=id_plataforma).exists():
             self.add_error('nombre','Ya existe un producto con el mismo nombre, con el mismo formato y para la misma plataforma.')
+            self.add_error('id_formato','Ya existe un producto con el mismo nombre, con el mismo formato y para la misma plataforma.')
+            self.add_error('id_plataforma','Ya existe un producto con el mismo nombre, con el mismo formato y para la misma plataforma.')
             
         return cleaned_data
     
