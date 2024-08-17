@@ -5,7 +5,7 @@
 {% block content %}
 <style>
   /* Estilo personalizado para las tarjetas */
-  .cardita {
+  .tarjeta-producto {
     width: 100%;
     max-width: 300px;
     height: auto;
@@ -23,16 +23,19 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
   
-  .cardita h5 {
+  .tarjeta-producto h5 {
     font-size: 1.5em;
     margin: 0.5em 0;
   }
   
-  .cardita p {
+  .tarjeta-producto p {
     font-size: 0.9em;
+    text-align: left; /* Alineación a la izquierda para los items */
+    margin: 0;
+    width: 100%; /* Para asegurar que el texto ocupe todo el ancho disponible */
   }
-  
-  .cardita::before {
+
+  .tarjeta-producto::before {
     content: '';
     position: absolute;
     width: 100px;
@@ -51,7 +54,7 @@
     }
   }
   
-  .cardita::after {
+  .tarjeta-producto::after {
     content: '';
     position: absolute;
     background: #ffffff;
@@ -60,7 +63,7 @@
     z-index: 1;
   }  
   
-  .cardita * {
+  .tarjeta-producto * {
     position: relative;
     z-index: 2;
   }
@@ -73,16 +76,18 @@
     <div class="row">
         {% for producto in productos %}
             <div class="col-md-4 mb-4">
-                <div class="cardita">
-                    <h5>{{ producto.nombre }}</h5>
+                <div class="tarjeta-producto">
+                    <h5 style="color: {% if forloop.counter|divisibleby:2 %}#06a1bd{% else %}#1fc255{% endif %};">
+                        {{ producto.nombre }}
+                    </h5>
                     <p>
-                        Código: {{ producto.codigo_producto }}<br>
-                        Formato: {{ producto.id_formato.catalogo }}<br>
-                        Plataforma: {{ producto.id_plataforma.catalogo }}<br>
-                        Género: {{ producto.id_genero.catalogo }}<br>
-                        Año de lanzamiento: {{ producto.ano_lanzamiento }}<br>
-                        Precio: {{ producto.precio_unitario }}<br>
-                        Stock: {{ producto.stock }}
+                        <strong>Código:</strong> {{ producto.codigo_producto }}<br>
+                        <strong>Formato:</strong> {{ producto.id_formato.catalogo }}<br>
+                        <strong>Plataforma:</strong> {{ producto.id_plataforma.catalogo }}<br>
+                        <strong>Género:</strong> {{ producto.id_genero.catalogo }}<br>
+                        <strong>Año de lanzamiento:</strong> {{ producto.ano_lanzamiento }}<br>
+                        <strong>Precio:</strong> {{ producto.precio_unitario }}$<br>
+                        <strong>Stock:</strong> {{ producto.stock }}
                     </p>
                 </div>
             </div>
