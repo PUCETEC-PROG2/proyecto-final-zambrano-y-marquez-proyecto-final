@@ -4,37 +4,36 @@
 
 {% block content %}
 <style>
-  /* Estilo para las tarjetas con imágenes de fondo y efecto hover */
-  .card-container {
+  .tarjeta-index-container {
     position: relative;
     overflow: hidden;
     border-radius: 10px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
   }
 
-  .card-container .card-img-top {
+  .tarjeta-index-container .tarjeta-index-img-top {
     width: 100%;
     height: 300px;
     object-fit: cover;
   }
 
-  .card-container .card-body {
+  .tarjeta-index-container .tarjeta-index-body {
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
     padding: 20px;
-    background: rgba(255, 255, 255, 0.8); /* Fondo blanco con opacidad */
-    color: #333; /* Color de texto */
+    background: rgba(255, 255, 255, 0.8);
+    color: #1a856f;
     text-align: center;
     transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
   }
 
-  .card-container:hover .card-body {
+  .tarjeta-index-container:hover .tarjeta-index-body {
     transform: translateY(0);
   }
 
-  .card-container .card-body-hidden {
+  .tarjeta-index-container .tarjeta-index-body-hidden {
     position: absolute;
     top: 0;
     left: 0;
@@ -45,8 +44,8 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    background: rgba(255, 255, 255, 0.8); /* Fondo blanco con opacidad */
-    color: #333; /* Color de texto */
+    background: rgba(255, 255, 255, 0.8);
+    color: #1a856f;
     padding: 20px;
     line-height: 1.5;
     border-radius: 5px;
@@ -54,7 +53,7 @@
     transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
   }
 
-  .card-container:hover .card-body-hidden {
+  .tarjeta-index-container:hover .tarjeta-index-body-hidden {
     transform: translateY(0);
   }
 </style>
@@ -64,30 +63,30 @@
     <div class="row">
       <div class="col-md-6 mb-4">
         <a href="{% url 'catalogo_videojuegos:clientes' %}" class="text-decoration-none">
-          <div class="card-container">
-            <img src="{% static 'images/clientes.webp' %}" class="card-img-top" alt="Clientes">
-            <div class="card-body-hidden">
-              <h5 class="card-title"></h5>
-              <p class="card-text"></p>
+          <div class="tarjeta-index-container">
+            <img src="{% static 'images/clientes.webp' %}" class="tarjeta-index-img-top" alt="Clientes">
+            <div class="tarjeta-index-body-hidden">
+              <h5 class="tarjeta-index-title"></h5>
+              <p class="tarjeta-index-text"></p>
             </div>
-            <div class="card-body">
-              <h5 class="card-title">Clientes</h5>
-              <p class="card-text">Gestiona la información de los clientes registrados.</p>
+            <div class="tarjeta-index-body">
+              <h5 class="tarjeta-index-title">Clientes</h5>
+              <p class="tarjeta-index-text">Gestiona la información de los clientes registrados.</p>
             </div>
           </div>
         </a>
       </div>
       <div class="col-md-6 mb-4">
         <a href="{% url 'catalogo_videojuegos:inventario' %}" class="text-decoration-none">
-          <div class="card-container">
-            <img src="{% static 'images/inventario.jpg' %}" class="card-img-top" alt="Inventario">
-            <div class="card-body-hidden">
-              <h5 class="card-title"></h5>
-              <p class="card-text"></p>
+          <div class="tarjeta-index-container">
+            <img src="{% static 'images/inventario.jpg' %}" class="tarjeta-index-img-top" alt="Inventario">
+            <div class="tarjeta-index-body-hidden">
+              <h5 class="tarjeta-index-title"></h5>
+              <p class="tarjeta-index-text"></p>
             </div>
-            <div class="card-body">
-              <h5 class="card-title">Inventario</h5>
-              <p class="card-text">Administra los productos disponibles en el inventario.</p>
+            <div class="tarjeta-index-body">
+              <h5 class="tarjeta-index-title">Inventario</h5>
+              <p class="tarjeta-index-text">Administra los productos disponibles en el inventario.</p>
             </div>
           </div>
         </a>
@@ -96,45 +95,45 @@
     <div class="row">
       <div class="col-md-4 mb-4">
         <a href="{% url 'catalogo_videojuegos:ventas' %}" class="text-decoration-none">
-          <div class="card-container">
-            <img src="{% static 'images/ventas.jpg' %}" class="card-img-top" alt="Ventas">
-            <div class="card-body-hidden">
-              <h5 class="card-title"></h5>
-              <p class="card-text"></p>
+          <div class="tarjeta-index-container">
+            <img src="{% static 'images/ventas.jpg' %}" class="tarjeta-index-img-top" alt="Ventas">
+            <div class="tarjeta-index-body-hidden">
+              <h5 class="tarjeta-index-title"></h5>
+              <p class="tarjeta-index-text"></p>
             </div>
-            <div class="card-body">
-              <h5 class="card-title">Ventas</h5>
-              <p class="card-text">Consulta y gestiona las ventas realizadas.</p>
+            <div class="tarjeta-index-body">
+              <h5 class="tarjeta-index-title">Ventas</h5>
+              <p class="tarjeta-index-text">Consulta y gestiona las ventas realizadas.</p>
             </div>
           </div>
         </a>
       </div>
       <div class="col-md-4 mb-4">
         <a href="{% url 'catalogo_videojuegos:categorias' %}" class="text-decoration-none">
-          <div class="card-container">
-            <img src="{% static 'images/categorias.webp' %}" class="card-img-top" alt="Categorías">
-            <div class="card-body-hidden">
-              <h5 class="card-title"></h5>
-              <p class="card-text"></p>
+          <div class="tarjeta-index-container">
+            <img src="{% static 'images/categorias.webp' %}" class="tarjeta-index-img-top" alt="Categorías">
+            <div class="tarjeta-index-body-hidden">
+              <h5 class="tarjeta-index-title"></h5>
+              <p class="tarjeta-index-text"></p>
             </div>
-            <div class="card-body">
-              <h5 class="card-title">Categorías</h5>
-              <p class="card-text">Accede a las categorías de productos.</p>
+            <div class="tarjeta-index-body">
+              <h5 class="tarjeta-index-title">Categorías</h5>
+              <p class="tarjeta-index-text">Accede a las categorías de productos.</p>
             </div>
           </div>
         </a>
       </div>
       <div class="col-md-4 mb-4">
         <a href="{% url 'catalogo_videojuegos:catalogos' %}" class="text-decoration-none">
-          <div class="card-container">
-            <img src="{% static 'images/catalogos.jpg' %}" class="card-img-top" alt="Catálogos">
-            <div class="card-body-hidden">
-              <h5 class="card-title"></h5>
-              <p class="card-text"></p>
+          <div class="tarjeta-index-container">
+            <img src="{% static 'images/catalogos.jpg' %}" class="tarjeta-index-img-top" alt="Catálogos">
+            <div class="tarjeta-index-body-hidden">
+              <h5 class="tarjeta-index-title"></h5>
+              <p class="tarjeta-index-text"></p>
             </div>
-            <div class="card-body">
-              <h5 class="card-title">Catálogos</h5>
-              <p class="card-text">Explora y administra los catálogos.</p>
+            <div class="tarjeta-index-body">
+              <h5 class="tarjeta-index-title">Catálogos</h5>
+              <p class="tarjeta-index-text">Explora y administra los catálogos.</p>
             </div>
           </div>
         </a>
