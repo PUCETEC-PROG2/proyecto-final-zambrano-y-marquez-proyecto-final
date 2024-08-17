@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% block title %}Productos{% endblock %}
+
+{% block content %}
+<style>
+  /* Estilo personalizado para las tarjetas */
+  .cardita {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    background: #ffffff;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    border-radius: 20px;
+    color: black;
+    text-align: center;
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .cardita h5 {
+    font-size: 1.5em;
+    margin: 0.5em 0;
+  }
+  
+  .cardita p {
+    font-size: 0.9em;
+  }
+  
+  .cardita::before {
+    content: '';
+    position: absolute;
+    width: 100px;
+    background-image: linear-gradient(180deg, rgb(0, 183, 255), #27f56c);
+    height: 130%;
+    animation: rotBGimg 3s linear infinite;
+    transition: all 0.2s linear;
+  }
+  
+  @keyframes rotBGimg {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  .cardita::after {
+    content: '';
+    position: absolute;
+    background: #ffffff;
+    inset: 5px;
+    border-radius: 15px;
+    z-index: 1;
+  }  
+  
+  .cardita * {
+    position: relative;
+    z-index: 2;
+  }
+
+</style>
+
+<div class="container">
+    <h2 class="text-center mb-4">Productos en la categoría {{ categoria.catalogo }}: {{ subcategoria.item_catalogo }}</h2>
+
+    <div class="row">
+        {% for producto in productos %}
+            <div class="col-md-4 mb-4">
+                <div class="cardita">
+                    <h5>{{ producto.nombre }}</h5>
+                    <p>
+                        Código: {{ producto.codigo_producto }}<br>
+                        Formato: {{ producto.id_formato.catalogo }}<br>
+                        Plataforma: {{ producto.id_plataforma.catalogo }}<br>
+                        Género: {{ producto.id_genero.catalogo }}<br>
+                        Año de lanzamiento: {{ producto.ano_lanzamiento }}<br>
+                        Precio: {{ producto.precio_unitario }}<br>
+                        Stock: {{ producto.stock }}
+                    </p>
+                </div>
+            </div>
+        {% empty %}
+            <div class="col-12 no-products">
+                <p>No se encontraron productos en esta categoría.</p>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -32,7 +32,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-6 mb-4">
+                <div class="col-md-4 mb-4">
                     <a href="{% url 'catalogo_videojuegos:ventas' %}" class="text-decoration-none">
                         <div class="card text-center" style="height: 400px;">
                             <img src="{% static 'images/ventas.jpg' %}" class="card-img-top" style="height: 300px;" alt="Ventas">
@@ -44,13 +44,25 @@
                         </div>
                     </a>
                 </div>
-                <div class="col-md-6 mb-4">
+                <div class="col-md-4 mb-4">
+                    <a href="{% url 'catalogo_videojuegos:categorias' %}" class="text-decoration-none">
+                        <div class="card text-center" style="height: 400px;">
+                            <img src="{% static 'images/categorias.webp' %}" class="card-img-top" style="height: 300px;" alt="Catálogos">
+                            <div class="card-body">
+                                <h5 class="card-title">Categorias</h5>
+                                <p class="card-text">Accede a las categorías de productos.</p>
+                                <span class="stretched-link"></span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-4 mb-4">
                     <a href="{% url 'catalogo_videojuegos:catalogos' %}" class="text-decoration-none">
                         <div class="card text-center" style="height: 400px;">
                             <img src="{% static 'images/catalogos.jpg' %}" class="card-img-top" style="height: 300px;" alt="Catálogos">
                             <div class="card-body">
                                 <h5 class="card-title">Catálogos</h5>
-                                <p class="card-text">Explora y administra los catálogos de productos.</p>
+                                <p class="card-text">Explora y administra los catálogos.</p>
                                 <span class="stretched-link"></span>
                             </div>
                         </div>

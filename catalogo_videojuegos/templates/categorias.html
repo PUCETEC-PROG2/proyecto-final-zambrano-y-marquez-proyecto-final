@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %} Categorías {% endblock title %}
+
+{% block content %}
+<div class="container-fluid">
+    <h2 class="text-center mb-4">Categorías</h2>
+    <div class="container mt-5">
+        <div class="row">
+            {% for categoria in categorias %}
+            <div class="col-md-4 mb-4">
+                <a href="{% url 'catalogo_videojuegos:subcategorias' categoria.id %}" class="text-decoration-none">
+                    <div class="card text-center" style="height: 400px;">
+                        <img src="{% static 'images/'|add:categoria.catalogo|lower|add:'.jpg' %}" class="card-img-top" style="height: 300px;" alt="{{ categoria.catalogo }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ categoria.catalogo }}</h5>
+                            <p class="card-text">Ver subcategorías</p>
+                            <span class="stretched-link"></span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock content %}

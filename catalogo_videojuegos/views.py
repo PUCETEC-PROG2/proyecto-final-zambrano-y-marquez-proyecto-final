@@ -5,6 +5,7 @@ from django.utils import timezone
 from django.contrib import messages
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 import pytz
 
 from .models import Clientes, Catalogos, Inventario, Ventas, Detalle_Ventas
@@ -32,6 +33,40 @@ def catalogos(request):
     catalogos = Catalogos.objects.order_by('id')
     template = loader.get_template('catalogos.html')
     return HttpResponse(template.render({'catalogos': catalogos}, request))
+
+def categorias(request):
+    categorias = Catalogos.objects.filter(catalogo__in=['FORMATO', 'PLATAFORMA', 'GENERO']).distinct()
+    return render(request, 'categorias.html', {'categorias': categorias})
+
+def subcategorias(request, categoria_id):
+    categoria = get_object_or_404(Catalogos, id=categoria_id)
+    subcategorias = Catalogos.objects.filter(id_raiz=categoria_id)
+    return render(request, 'subcategorias.html', {'categoria': categoria, 'subcategorias': subcategorias})
+
+def productos(request, subcategoria_id):
+    subcategoria = get_object_or_404(Catalogos, id=subcategoria_id)
+    categoria = get_object_or_404(Catalogos, id=subcategoria.id_raiz)
+
+    # Filtrar productos según la subcategoría
+    # Asegúrate de ajustar el filtro según la subcategoría
+    if categoria.catalogo == "FORMATO":
+        productos = Inventario.objects.filter(id_formato=subcategoria_id)
+    elif categoria.catalogo == "GENERO":
+        productos = Inventario.objects.filter(id_genero=subcategoria_id)
+    elif categoria.catalogo == "PLATAFORMA":
+        productos = Inventario.objects.filter(id_plataforma=subcategoria_id)
+    else:
+        productos = Inventario.objects.none()  # No hay productos si la subcategoría no coincide
+
+    print(f"Productos encontrados: {productos}")
+
+    context = {
+        'productos': productos,
+        'subcategoria': subcategoria,
+        'categoria': categoria
+    }
+
+    return render(request, 'productos.html', context)
 
 def ventas(request):
     ventas = Ventas.objects.all().order_by('-fecha')
@@ -195,8 +230,8 @@ def ingresar_venta(request):
         cliente_id = request.POST.get('cliente')
         fecha = request.POST.get('fecha')
         forma_pago_id = request.POST.get('forma_pago')
-        productos_seleccionados = request.POST.getlist('productos[]')  # IDs de productos seleccionados
-        cantidades = request.POST.getlist('cantidades[]')  # Cantidades correspondientes a los productos
+        productos_seleccionados = request.POST.getlist('productos[]')
+        cantidades = request.POST.getlist('cantidades[]')
 
         # Verificar que las cantidades no excedan el stock
         for idx, producto_id in enumerate(productos_seleccionados):
@@ -211,7 +246,7 @@ def ingresar_venta(request):
         venta = Ventas.objects.create(
             id_cliente_id=cliente_id,
             fecha=fecha,
-            total_venta=0,  # Temporalmente 0, se actualizará más tarde
+            total_venta=0,
             id_forma_pago_id=forma_pago_id
         )
 
