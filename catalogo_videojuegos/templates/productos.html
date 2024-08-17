@@ -9,7 +9,7 @@
     width: 100%;
     max-width: 300px;
     height: auto;
-    background: #ffffff;
+    background: #378e99;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -57,7 +57,7 @@
   .tarjeta-producto::after {
     content: '';
     position: absolute;
-    background: #ffffff;
+    background: #e7e7e7;
     inset: 5px;
     border-radius: 15px;
     z-index: 1;
@@ -82,9 +82,9 @@
                     </h5>
                     <p>
                         <strong>Código:</strong> {{ producto.codigo_producto }}<br>
-                        <strong>Formato:</strong> {{ producto.id_formato.catalogo }}<br>
-                        <strong>Plataforma:</strong> {{ producto.id_plataforma.catalogo }}<br>
-                        <strong>Género:</strong> {{ producto.id_genero.catalogo }}<br>
+                        <strong>Formato:</strong> {{ producto.id_formato.item_catalogo }}<br>
+                        <strong>Plataforma:</strong> {{ producto.id_plataforma.item_catalogo }}<br>
+                        <strong>Género:</strong> {{ producto.id_genero.item_catalogo }}<br>
                         <strong>Año de lanzamiento:</strong> {{ producto.ano_lanzamiento }}<br>
                         <strong>Precio:</strong> {{ producto.precio_unitario }}$<br>
                         <strong>Stock:</strong> {{ producto.stock }}
