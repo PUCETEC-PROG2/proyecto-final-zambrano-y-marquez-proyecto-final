@@ -5,7 +5,6 @@ from django.utils import timezone
 from django.contrib import messages
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.decorators import login_required
-from django.db.models import Q
 import pytz
 
 from .models import Clientes, Catalogos, Inventario, Ventas, Detalle_Ventas
@@ -47,8 +46,6 @@ def productos(request, subcategoria_id):
     subcategoria = get_object_or_404(Catalogos, id=subcategoria_id)
     categoria = get_object_or_404(Catalogos, id=subcategoria.id_raiz)
 
-    # Filtrar productos según la subcategoría
-    # Asegúrate de ajustar el filtro según la subcategoría
     if categoria.catalogo == "FORMATO":
         productos = Inventario.objects.filter(id_formato=subcategoria_id)
     elif categoria.catalogo == "GENERO":
@@ -56,7 +53,7 @@ def productos(request, subcategoria_id):
     elif categoria.catalogo == "PLATAFORMA":
         productos = Inventario.objects.filter(id_plataforma=subcategoria_id)
     else:
-        productos = Inventario.objects.none()  # No hay productos si la subcategoría no coincide
+        productos = Inventario.objects.none() 
 
     print(f"Productos encontrados: {productos}")
 
